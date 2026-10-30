@@ -176,8 +176,18 @@ func _show_pause_menu() -> void:
 		_paused = false
 		_set_movement(true))
 	vbox.add_child(resume)
-
-	var save := _menu_button("Save")
+	
+var journal := _menu_button("Journal")
+	journal.pressed.connect(func():
+		center.hide()
+		overlay.add_child(Journal.create_overlay(func():
+			center.show()
+			journal.grab_focus()
+		))
+	)
+	vbox.add_child(journal)
+	
+var save := _menu_button("Save")
 	save.pressed.connect(func():
 		GameState.current_scene = scene_file_path
 		var ok := GameState.save_game()
