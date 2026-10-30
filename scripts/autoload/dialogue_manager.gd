@@ -14,7 +14,7 @@ signal dialogue_started
 signal line_shown(speaker: String, text: String, choices: Array)
 signal dialogue_finished
 
-# Canonical story flags (see flags-and-branches.md) that unlock journal entries.
+## Canonical story flags (see flags-and-branches.md) that unlock journal entries.
 const FLAG_TO_ENTRY := {
 	"skeptic": "entry_skeptic",
 	"believer": "entry_believer",
