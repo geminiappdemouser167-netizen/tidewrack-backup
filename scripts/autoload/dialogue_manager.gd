@@ -95,7 +95,6 @@ func _apply_flags(dict: Dictionary) -> void:
 				Journal.discover(flag)
 	
 
-
 func _finish() -> void:
 	is_active = false
 	_graph = {}
