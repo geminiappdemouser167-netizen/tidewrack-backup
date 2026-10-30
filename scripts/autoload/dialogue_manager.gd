@@ -14,6 +14,13 @@ signal dialogue_started
 signal line_shown(speaker: String, text: String, choices: Array)
 signal dialogue_finished
 
+# Canonical story flags (see flags-and-branches.md) that unlock journal entries.
+const FLAG_TO_ENTRY := {
+	"skeptic": "entry_skeptic",
+	"believer": "entry_believer",
+	"trusted_edith": "entry_trusted_edith",
+	"radioed_tom": "entry_radioed_tom",
+}
 var _graph: Dictionary = {}
 var _current_id: String = ""
 var is_active: bool = false
@@ -78,7 +85,15 @@ func _goto(id: String) -> void:
 
 func _apply_flags(dict: Dictionary) -> void:
 	for key in dict:
-		GameState.set_flag(str(key), dict[key])
+		var flag := str(key)
+		var value: Variant = dict[key]
+		GameState.set_flag(flag, value)
+		if value:
+			if FLAG_TO_ENTRY.has(flag):
+				Journal.discover(str(FLAG_TO_ENTRY[flag]))
+			elif flag.begins_with("entry_"):
+				Journal.discover(flag)
+	
 
 
 func _finish() -> void:
