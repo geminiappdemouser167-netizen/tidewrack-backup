@@ -145,7 +145,10 @@ func _toggle_pause() -> void:
 	_set_movement(not _paused)
 	if _paused:
 		_show_pause_menu()
-
+	else:
+		var layer := get_node_or_null("PauseLayer")
+		if layer != null:
+			layer.queue_free()
 
 func _show_pause_menu() -> void:
 	var overlay := Control.new()
